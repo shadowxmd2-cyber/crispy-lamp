@@ -1,13 +1,7 @@
-import { API_KEY, BASE_URL } from "./config.js";
+import { API_BASE } from "./config.js";
 
-const url = new URLSearchParams(location.search).get("url");
-
-async function loadMovie() {
-    const res = await fetch(`${BASE_URL}/movie?apiKey=${API_KEY}&url=${url}`);
-    const data = await res.json();
-
-    document.querySelector("#title").textContent = data.title;
-    document.querySelector("#video").src = data.video;
+async function loadMovie(id) {
+  const res = await fetch(`${API_BASE}/movie/${id}`);
+  const data = await res.json();
+  console.log(data);
 }
-
-loadMovie();
