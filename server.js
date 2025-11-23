@@ -1,19 +1,21 @@
 import express from "express";
-import path from "path";
-import { fileURLToPath } from "url";
+import fetch from "node-fetch";
+import cors from "cors";
 
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+app.use(cors());
 
-app.use(express.static(__dirname + "/public"));
-app.use(express.static(__dirname + "/pages"));
+const API_BASE = "https://foreign-marna-sithaunarathnapromax-9a005c2e.koyeb.app/api";
 
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/pages/index.html");
+app.get("/api/*", async (req, res) => {
+  try {
+    const url = API_BASE + req.url.replace("/api", "");
+    const response = await fetch(url);
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: "Proxy failed", details: err.message });
+  }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () =>
-    console.log(`Server running on http://localhost:${PORT}`)
-);
+app.listen(3000, () => console.log("Server running on port 3000"));
