@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SubMovies LK</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header>
+        <img src="../public/logo.png" class="logo">
+        <input type="text" id="searchMain" placeholder="Search movies..." />
+        <button onclick="search()">Search</button>
+    </header>
+
+    <h2>Popular Movies</h2>
+    <div id="popular-movies" class="grid"></div>
+
+    <h2>Latest Movies</h2>
+    <div id="latest-movies" class="grid"></div>
+
+    <script type="module" src="../app.js"></script>
+    <script>
+        function search() {
+            const q = document.querySelector("#searchMain").value;
+            location.href = `/pages/search.html?q=${q}`;
+        }
+    </script>
+</body>
+</html>
